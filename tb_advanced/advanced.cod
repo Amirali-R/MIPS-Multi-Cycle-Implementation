@@ -1,0 +1,39 @@
+ Address    Code        Basic                     Source
+
+0x00003000  0x3c09ffff  lui $9,0x0000ffff        	lui	$t1,0xffff
+0x00003004  0xac0900c8  sw $9,0x000000c8($0)     	sw	$t1,200($zero)
+0x00003008  0x3409ffff  ori $9,$0,0x0000ffff     	ori	$t1,$zero,0xffff
+0x0000300c  0x200a1111  addi $10,$0,0x00001111   	addi	$t2,$zero,0x1111
+0x00003010  0x012a0019  multu $9,$10             	multu	$t1,$t2
+0x00003014  0x00001010  mfhi $2                  	mfhi	$v0
+0x00003018  0x00001812  mflo $3                  	mflo	$v1
+0x0000301c  0xac0200cc  sw $2,0x000000cc($0)     	sw	$v0,204($zero)
+0x00003020  0xac0300d0  sw $3,0x000000d0($0)     	sw	$v1,208($zero)
+0x00003024  0x3c0bdead  lui $11,0x0000dead       	lui	$t3,0xdead
+0x00003028  0x356bbeef  ori $11,$11,0x0000beef   	ori	$t3,$t3,0xbeef
+0x0000302c  0x3c0c900d  lui $12,0x0000900d       	lui	$t4,0x900d
+0x00003030  0x358cf00d  ori $12,$12,0x0000f00d   	ori	$t4,$t4,0xf00d
+0x00003034  0x016c0019  multu $11,$12            	multu	$t3,$t4
+0x00003038  0x00001010  mfhi $2                  	mfhi	$v0
+0x0000303c  0x00001812  mflo $3                  	mflo	$v1
+0x00003040  0xac0200d4  sw $2,0x000000d4($0)     	sw	$v0,212($zero)
+0x00003044  0xac0300d8  sw $3,0x000000d8($0)     	sw	$v1,216($zero)
+0x00003048  0x2004ffff  addi $4,$0,0xffffffff    	addi	$a0,$zero,-1		#bad(fail)
+0x0000304c  0x3405900d  ori $5,$0,0x0000900d     	ori	$a1,$zero,0x900d	#good
+0x00003050  0x08000c18  j 0x00003060             	j	next1
+0x00003054  0xac0400dc  sw $4,0x000000dc($0)     	sw	$a0,220($zero)
+0x00003058  0xac0400e0  sw $4,0x000000e0($0)     	sw	$a0,224($zero)
+0x0000305c  0xac0400e4  sw $4,0x000000e4($0)     	sw	$a0,228($zero)
+0x00003060  0xac0500e8  sw $5,0x000000e8($0)     	sw	$a1,232($zero)
+0x00003064  0x0c000c1f  jal 0x0000307c           	jal	func1
+0x00003068  0xac0500f4  sw $5,0x000000f4($0)     	sw	$a1,244($zero)
+0x0000306c  0x20010088  addi $1,$0,0x00000088    	addi	$at,$zero,0x0088
+0x00003070  0x0020f809  jalr $1                  	jalr	$at
+0x00003074  0xac050100  sw $5,0x00000100($0)     	sw	$a1,256($zero)
+0x00003078  0x08000c1e  j 0x00003078             	j	finish	
+0x0000307c  0xac1f00ec  sw $31,0x000000ec($0)    	sw	$ra,236($zero)
+0x00003080  0xac0500f0  sw $5,0x000000f0($0)     	sw	$a1,240($zero)
+0x00003084  0x03e00008  jr $31                   	jr	$ra
+0x00003088  0xac0500f8  sw $5,0x000000f8($0)     	sw	$a1,248($zero)
+0x0000308c  0xac0500fc  sw $5,0x000000fc($0)     	sw	$a1,252($zero)
+0x00003090  0x03e00008  jr $31                   	jr	$ra

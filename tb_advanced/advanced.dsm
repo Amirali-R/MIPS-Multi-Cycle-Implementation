@@ -1,0 +1,52 @@
+	lui	$t1,0xffff
+	sw	$t1,0($zero)
+	
+	ori	$t1,$zero,0xffff
+	addi	$t2,$zero,0x1111
+	multu	$t1,$t2
+	mfhi	$v0
+	mflo	$v1
+	sw	$v0,4($zero)
+	sw	$v1,8($zero)
+	
+	lui	$t3,0xdead
+	ori	$t3,$t3,0xbeef
+	lui	$t4,0x900d
+	ori	$t4,$t4,0xf00d
+	multu	$t3,$t4
+	mfhi	$v0
+	mflo	$v1
+	sw	$v0,12($zero)
+	sw	$v1,16($zero)
+	
+	addi	$a0,$zero,-1		#bad(fail)
+	ori	$a1,$zero,0x900d	#good
+	
+	j	next1
+	sw	$a0,20($zero)
+	sw	$a0,24($zero)
+	sw	$a0,28($zero)
+next1:
+	sw	$a1,32($zero)
+	
+	jal	func1
+	sw	$a1,44($zero)
+	
+	addi	$at,$zero,0x3088
+	jalr	$at
+	sw	$a1,56($zero)
+
+finish:
+	j	finish	
+
+	
+func1:
+	sw	$ra,36($zero)
+	sw	$a1,40($zero)
+	jr	$ra
+	
+func2:
+	sw	$a1,48($zero)
+	sw	$a1,52($zero)
+	jr	$ra
+	
